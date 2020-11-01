@@ -169,6 +169,7 @@ class Single_prod extends StatelessWidget {
     this.prod_price,
     this.prod_desc,
   });
+
   @override
   Widget build(BuildContext context) {
     return Card(
