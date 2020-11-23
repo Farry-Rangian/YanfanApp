@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class ProductDetails extends StatefulWidget {
   final product_details_name;
@@ -6,6 +7,8 @@ class ProductDetails extends StatefulWidget {
   final product_details_old_price;
   final product_details_picture;
   final product_details_desc;
+  final product_details_trend1;
+  final product_details_trend2;
 
   ProductDetails({
     this.product_details_name,
@@ -13,6 +16,8 @@ class ProductDetails extends StatefulWidget {
     this.product_details_new_price,
     this.product_details_picture,
     this.product_details_desc,
+    this.product_details_trend1,
+    this.product_details_trend2
   });
 
   @override
@@ -29,7 +34,6 @@ class _ProductDetailsState extends State<ProductDetails> {
       title: Text('YANFAN'),
       actions: <Widget>[
         new IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: (){}),
-        new IconButton(icon: Icon(Icons.shopping_cart, color: Colors.white,), onPressed: (){}),
       ],
     ),
 
@@ -40,7 +44,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: GridTile(
               child: Container(
                 color: Colors.white,
-                child: Image.asset(widget.product_details_picture),
+                child: Image.network(widget.product_details_picture),
               ),
             footer: new Container(
               color: Colors.white,
@@ -69,22 +73,28 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: <Widget>[
 //         ====== the size button ======
               Expanded(child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  FlutterOpenWhatsapp.sendSingleMessage("6289698576314","Pesan "+ widget.product_details_name);
+                },
                 color: Colors.lightBlueAccent,
                 textColor: Colors.white,
                 elevation: 0.2,
-                child: new Text("Buy now"),
+                child: new Text("Order Now"),
               ),
               ),
-
-              new IconButton(icon: Icon(Icons.add_shopping_cart, color: Colors.red,), onPressed: (){}),
-              new IconButton(icon: Icon(Icons.favorite_border, color: Colors.red,), onPressed: (){})
             ],
           ),
           new ListTile(
             title: new Text("Product details"),
             subtitle: new Text("${widget.product_details_desc}"),
           ),
+          new ListTile(
+            title: new Text("Trend Harga"),
+            subtitle: new Text("Harga awal pandemi = "+"${widget.product_details_trend1}"),
+          ),
+          ListTile(
+            subtitle: new Text("Harga sekarang = "+"${widget.product_details_trend2}"),
+          )
         ],
       ),
     );

@@ -4,6 +4,9 @@ import 'package:carousel_pro/carousel_pro.dart';
 //my own import
 import 'package:yanfan/components/horizontal_listview.dart';
 import 'package:yanfan/components/products.dart';
+import 'package:yanfan/sign_in.dart';
+import 'package:yanfan/signout.dart';
+import 'package:yanfan/pages/search.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,18 +17,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget image_carousel = new Container(
-      height:200.0,
+      height:250.0,
       child: new Carousel(
         boxFit: BoxFit.cover,
         images: [
-          AssetImage('images/m1.jpeg'),
-          AssetImage('images/a1.jpg'),
-          AssetImage('images/a2.jpg'),
-          AssetImage('images/h1.jpg'),
-          AssetImage('images/h2.jpg'),
-          AssetImage('images/f1.jpg'),
+          AssetImage('images/q1.jpg'),
+          AssetImage('images/q2.jpg'),
+          AssetImage('images/q3.jpg'),
+          AssetImage('images/11.jpg'),
+          AssetImage('images/22.jpg'),
+          AssetImage('images/sanitizer.jpeg'),
+          AssetImage('images/cucitangan.jpeg'),
         ],
-        autoplay: true,
+        autoplay: false,
         animationCurve: Curves.fastOutSlowIn,
         animationDuration: Duration(milliseconds: 1000),
         dotSize: 4.0,
@@ -38,8 +42,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.lightBlueAccent,
         title: Text('YANFAN'),
         actions: <Widget>[
-          new IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: (){}),
-          new IconButton(icon: Icon(Icons.shopping_cart, color: Colors.white,), onPressed: (){}),
+          new IconButton(icon: Icon(Icons.search, color: Colors.white,),
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CloudFirestoreSearch();
+                    },
+                  ),
+                );
+              }),
         ],
       ),
 
@@ -48,13 +60,16 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               //          header
               new UserAccountsDrawerHeader(
-                accountName: Text('Farry Rangian'),
-                accountEmail: Text('christorangian@gmail.com'),
+                accountName: Text(name),
+                accountEmail: Text(email),
                 currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
-                      backgroundColor: Colors.blueGrey,
-                      child: Icon(Icons.person, color: Colors.white),
-                    )
+                      backgroundImage: NetworkImage(
+                        imageUrl,
+                      ),
+                      radius: 60,
+                      backgroundColor: Colors.transparent,
+                    ),
                 ),
                 decoration: new BoxDecoration(
                     color: Colors.lightBlueAccent
@@ -63,63 +78,71 @@ class _HomePageState extends State<HomePage> {
 
 //               body
 
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('Home Page'),
-                    leading: Icon(Icons.home),
-                  )
-              ),
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('Home Page'),
+              //       leading: Icon(Icons.home),
+              //     )
+              // ),
 
               InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return FirstScreen();
+                          },
+                        ),
+                    );
+                  },
                   child: ListTile(
                     title: Text('My Account'),
                     leading: Icon(Icons.person),
                   )
               ),
 
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('My Order'),
-                    leading: Icon(Icons.shopping_basket),
-                  )
-              ),
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('My Order'),
+              //       leading: Icon(Icons.shopping_basket),
+              //     )
+              // ),
 
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('Categories'),
-                    leading: Icon(Icons.dashboard),
-                  )
-              ),
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('Categories'),
+              //       leading: Icon(Icons.dashboard),
+              //     )
+              // ),
 
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('Favorites'),
-                    leading: Icon(Icons.favorite),
-                  )
-              ),
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('Favorites'),
+              //       leading: Icon(Icons.favorite),
+              //     )
+              // ),
 
               Divider(),
 
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('Settings'),
-                    leading: Icon(Icons.settings, color: Colors.blue),
-                  )
-              ),
-
-              InkWell(
-                  onTap: (){},
-                  child: ListTile(
-                    title: Text('About'),
-                    leading: Icon(Icons.help, color: Colors.red),
-                  )
-              ),
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('Settings'),
+              //       leading: Icon(Icons.settings, color: Colors.blue),
+              //     )
+              // ),
+              //
+              // InkWell(
+              //     onTap: (){},
+              //     child: ListTile(
+              //       title: Text('About'),
+              //       leading: Icon(Icons.help, color: Colors.red),
+              //     )
+              // ),
 
             ],
           )
@@ -139,7 +162,8 @@ class _HomePageState extends State<HomePage> {
 
           //gridview
           Container(
-            height: 320.0,
+            height: 250.0,
+            width: 250,
             child: Product(),
           )
 
